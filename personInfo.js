@@ -8,13 +8,13 @@ class Information {
   }
 
   addName(name) {
-    this.name = name;
+    this.name = name.trim();
   }
   addDob(dob) {
-    this.dob = dob;
+    this.dob = dob.trim();
   }
   addHobbies(hobbies) {
-    this.hobbies.push(hobbies);
+    this.hobbies.push(hobbies.trim());
   }
 
   saveData() {

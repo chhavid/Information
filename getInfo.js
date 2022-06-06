@@ -2,39 +2,22 @@ const { exit } = require('process');
 process.stdin.setEncoding('utf8');
 const { Information } = require('./personInfo.js');
 
-let index = 0;
-const processInput = (input, info) => {
-  const questions = [
-    {
-      ques: 'Please enter you name',
-      fn: (name) => info.addName(name)
-    },
-    {
-      ques: 'Please enter your DOB',
-      fn: (dob) => info.addDob(dob)
-    },
-    {
-      ques: 'Please enter your hobbies',
-      fn: (hobbies) => info.addHobbies(hobbies)
-    },
-    {
-      ques: 'Thank You!',
-      fn: () => info.saveData()
-    }
-  ];
-  console.log(questions[index].ques);
-  questions[index].fn(input);
-  index++;
-  if (index > 3) {
-    exit();
-  }
+const processInput = (input, fn, question) => {
+  fn(input);
+  console.log(question);
 };
 
-const read = () => {
-  console.log('Please enter you name');
-  const info = new Information();
+const read = (questions, fns, info) => {
+  let index = 0;
+
+  console.log('Please enter your name');
   process.stdin.on('data', (chunk) => {
-    processInput(chunk, info);
+    processInput(chunk, fns[index], questions[index]);
+    index++;
+    if (index > 2) {
+      info.saveData();
+      exit();
+    }
   });
 
   process.stdin.on('end', () => {
@@ -42,4 +25,22 @@ const read = () => {
   });
 };
 
-read();
+const questions = [
+  'Please enter your DOB',
+  'Please enter your hobbies',
+  'Thank You!'
+];
+
+const main = () => {
+  const info = new Information();
+  const fns = [
+    (name) => info.addName(name),
+    (dob) => info.addDob(dob),
+    (hobbies) => info.addHobbies(hobbies),
+    () => info.saveData()
+  ];
+
+  read(questions, fns, info);
+};
+
+main();
