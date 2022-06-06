@@ -14,7 +14,7 @@ class Information {
     this.dob = dob;
   }
   addHobbies(hobbies) {
-    this.hobbies = hobbies;
+    this.hobbies.push(hobbies);
   }
 
   saveData() {
