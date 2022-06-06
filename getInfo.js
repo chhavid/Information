@@ -3,17 +3,23 @@ process.stdin.setEncoding('utf8');
 const { Information } = require('./personInfo.js');
 
 const processInput = (input, fn, question) => {
-  fn(input);
+  if (fn(input) === false) {
+    return false;
+  }
   console.log(question);
+  return true;
 };
 
 const read = (questions, fns, info) => {
   let index = 0;
-
-  console.log('Please enter your name');
+  const firstQuest = 'Please enter your name';
+  console.log(firstQuest);
   process.stdin.on('data', (chunk) => {
-    processInput(chunk, fns[index], questions[index]);
-    index++;
+    if (processInput(chunk, fns[index], questions[index]) === true) {
+      index++;
+    } else {
+      console.log(questions[index - 1] || firstQuest);
+    }
     if (index > 2) {
       info.saveData();
       exit();

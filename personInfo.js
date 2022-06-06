@@ -9,17 +9,17 @@ class Information {
 
   addName(name) {
     this.name = name.trim();
-    this.#isNameValid();
+    return this.#isNameValid();
   }
 
   addDob(dob) {
     this.dob = dob.trim();
-    this.#isDobValid();
+    return this.#isDobValid();
   }
 
   addHobbies(hobbies) {
     this.hobbies.push(hobbies.trim());
-    this.#isHobbiesValid();
+    return this.#isHobbiesValid();
   }
 
   saveData() {
@@ -27,23 +27,19 @@ class Information {
   }
 
   #isNameValid() {
-    if (this.name.length < 4) {
-      return false;
-    }
-    return true;
+    return this.name.length > 3;
   }
 
   #isDobValid() {
-    const dobArray = this.dob.split('-');
-    if (!dobArray.every((date) => isFinite(date))) {
-      return false;
-    }
-    return dobArray[0].length === 4 && dobArray[1].length === 2 &&
-      dobArray[2].length === 2;
+    return /^\d\d\d\d-\d\d-\d\d$/.test(this.dob);
   }
 
   #isHobbiesValid() {
-    this.hobbies.length > 0;
+    if (this.hobbies[0] === '') {
+      this.hobbies.pop();
+      return false;
+    }
+    return this.hobbies.length > 0;
   }
 }
 
