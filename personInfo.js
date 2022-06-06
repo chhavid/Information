@@ -2,8 +2,8 @@ const fs = require('fs');
 
 class Information {
   constructor() {
-    this.name = '';
-    this.dob = '';
+    this.name = [];
+    this.dob = [];
     this.hobbies = [];
   }
 
@@ -20,6 +20,11 @@ class Information {
   addHobbies(hobbies) {
     this.hobbies.push(hobbies.trim());
     return this.#isHobbiesValid();
+  }
+
+  addPhnNo(number) {
+    this.phoneNum = number.trim();
+    return this.#isphnNumValid();
   }
 
   saveData() {
@@ -40,6 +45,10 @@ class Information {
       return false;
     }
     return this.hobbies.length > 0;
+  }
+
+  #isphnNumValid() {
+    return this.phoneNum.length === 10 && isFinite(this.phoneNum);
   }
 }
 
