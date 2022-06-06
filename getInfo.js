@@ -3,8 +3,7 @@ process.stdin.setEncoding('utf8');
 const { Information } = require('./personInfo.js');
 
 let index = 0;
-const processInput = (input) => {
-  const info = new Information();
+const processInput = (input, info) => {
   const questions = [
     {
       ques: 'Please enter you name',
@@ -33,8 +32,9 @@ const processInput = (input) => {
 
 const read = () => {
   console.log('Please enter you name');
+  const info = new Information();
   process.stdin.on('data', (chunk) => {
-    processInput(chunk);
+    processInput(chunk, info);
   });
 
   process.stdin.on('end', () => {
