@@ -25,13 +25,7 @@ const read = (questions, fns, info) => {
   });
 };
 
-const questions = [
-  'Please enter your DOB',
-  'Please enter your hobbies',
-  'Thank You!'
-];
-
-const main = () => {
+const main = (questions) => {
   const info = new Information();
   const fns = [
     (name) => info.addName(name),
@@ -43,4 +37,10 @@ const main = () => {
   read(questions, fns, info);
 };
 
-main();
+const questions = [
+  'Please enter your DOB',
+  'Please enter your hobbies',
+  'Thank You!'
+];
+
+main(questions);
