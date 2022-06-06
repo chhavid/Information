@@ -47,7 +47,7 @@ const main = (questions) => {
 };
 
 const questions = [
-  'Please enter your DOB',
+  'Please enter your DOB(yyyy-mm-dd)',
   'Please enter your hobbies',
   'Please enter your phone number',
   'Please enter your address line 1',

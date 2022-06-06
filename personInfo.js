@@ -4,9 +4,9 @@ class Information {
   constructor() {
     this.name = '';
     this.dob = '';
-    this.hobbies = [];
+    this.hobbies = '';
     this.phoneNum = '';
-    this.address = [];
+    this.address = '';
   }
 
   addName(name) {
@@ -20,7 +20,7 @@ class Information {
   }
 
   addHobbies(hobbies) {
-    this.hobbies.push(hobbies.trim());
+    this.hobbies = hobbies.trim().split(',');
     return this.#isHobbiesValid();
   }
 
@@ -33,12 +33,12 @@ class Information {
     if (line === '\n') {
       return false;
     }
-    this.address.push(line.trim());
+    const address = this.address + '\n' + line;
+    this.address = address.trim();
     return true;
   }
 
   saveData() {
-    this.address = this.address.join('\n');
     fs.writeFileSync('./info.json', JSON.stringify(this), 'utf8');
   }
 
