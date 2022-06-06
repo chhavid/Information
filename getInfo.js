@@ -20,7 +20,7 @@ const read = (questions, fns, info) => {
     } else {
       console.log(questions[index - 1] || firstQuest);
     }
-    if (index > 3) {
+    if (index > 5) {
       info.saveData();
       exit();
     }
@@ -38,6 +38,8 @@ const main = (questions) => {
     (dob) => info.addDob(dob),
     (hobbies) => info.addHobbies(hobbies),
     (number) => info.addPhnNo(number),
+    (line) => info.addAddress(line),
+    (line) => info.addAddress(line),
     () => info.saveData()
   ];
 
@@ -48,6 +50,8 @@ const questions = [
   'Please enter your DOB',
   'Please enter your hobbies',
   'Please enter your phone number',
+  'Please enter your address line 1',
+  'Please enter your address line 2',
   'Thank You!'
 ];
 

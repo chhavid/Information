@@ -2,9 +2,11 @@ const fs = require('fs');
 
 class Information {
   constructor() {
-    this.name = [];
-    this.dob = [];
+    this.name = '';
+    this.dob = '';
     this.hobbies = [];
+    this.phoneNum = '';
+    this.address = [];
   }
 
   addName(name) {
@@ -27,7 +29,16 @@ class Information {
     return this.#isphnNumValid();
   }
 
+  addAddress(line) {
+    if (line === '\n') {
+      return false;
+    }
+    this.address.push(line.trim());
+    return true;
+  }
+
   saveData() {
+    this.address = this.address.join('\n');
     fs.writeFileSync('./info.json', JSON.stringify(this), 'utf8');
   }
 
