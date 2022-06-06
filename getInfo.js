@@ -1,6 +1,5 @@
-const { exit } = require('process');
 process.stdin.setEncoding('utf8');
-const { Information } = require('./personInfo.js');
+const { Form } = require('./form.js');
 
 const processInput = (input, fn, question) => {
   if (fn(input) === false) {
@@ -22,7 +21,7 @@ const read = (questions, fns, info) => {
     }
     if (index > 5) {
       info.saveData();
-      exit();
+      process.exit();
     }
   });
 
@@ -32,7 +31,7 @@ const read = (questions, fns, info) => {
 };
 
 const main = (questions) => {
-  const info = new Information();
+  const info = new Form();
   const fns = [
     (name) => info.addName(name),
     (dob) => info.addDob(dob),

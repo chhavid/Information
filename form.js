@@ -1,6 +1,16 @@
 const fs = require('fs');
 
-class Information {
+const validateDate = (date) => {
+  return date.length === 2 && isFinite(date);
+};
+const validateMonth = (month) => {
+  return month.length === 2 && isFinite(month);
+};
+const validateYear = (year) => {
+  return year.length === 4 && isFinite(year);
+};
+
+class Form {
   constructor() {
     this.name = '';
     this.dob = '';
@@ -47,7 +57,12 @@ class Information {
   }
 
   #isDobValid() {
-    return /^\d\d\d\d-\d\d-\d\d$/.test(this.dob);
+    const dobArray = this.dob.split('-');
+    if (dobArray.length !== 3) {
+      return false;
+    }
+    const [year, month, date] = dobArray;
+    return validateYear(year) && validateMonth(month) && validateDate(date);
   }
 
   #isHobbiesValid() {
@@ -63,4 +78,4 @@ class Information {
   }
 }
 
-exports.Information = Information;
+exports.Form = Form;
