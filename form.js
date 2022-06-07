@@ -2,7 +2,6 @@ const fs = require('fs');
 
 class Form {
   constructor(queries) {
-    this.address = '';
     this.queries = queries;
     this.index = 0;
     this.formData = {};
@@ -30,14 +29,12 @@ class Form {
     return this.index > 5;
   }
 
-  addAddress(line) {
-    if (line === '\n') {
-      return false;
+  addAddress(address) {
+    if (this.formData.address) {
+      this.formData.address += '\n' + address;
+      return;
     }
-    const address = this.address + '\n' + line;
-    this.address = address.trim();
-    this.formData.address = this.address;
-    return true;
+    this.formData.address = address;
   }
 
   saveData() {
