@@ -3,23 +3,21 @@ const { Form } = require('./form.js');
 const { isNameValid, isDobValid, isphnNumValid, isHobbiesValid, isAddressValid }
   = require('./validators.js');
 
-const processInput = (input, form, query) => {
-  return form.addInfo(query.name, input, query.parser, query.validator);
+const processInput = (input, form) => {
+  return form.addInfo(input);
 };
 
-const read = (queries, form) => {
-  let index = 0;
-  console.log(queries[index].query);
+const read = (form) => {
+  form.displayQuery();
 
   process.stdin.on('data', (chunk) => {
-    if (processInput(chunk, form, queries[index]) === true) {
-      index++;
-    }
-    console.log(queries[index].query);
-    if (index > 5) {
+    processInput(chunk, form);
+    if (form.areAllDetailsFilled()) {
+      console.log('Thank You');
       form.saveData();
       process.exit();
     }
+    form.displayQuery();
   });
 
   process.stdin.on('end', () => {
@@ -55,14 +53,13 @@ const getQueries = () => [
   {
     name: 'address', query: 'Please enter your address line 2',
     validator: isAddressValid, parser: identity
-  },
-  { name: 'last', query: 'Thank You!' }
+  }
 ];
 
 const main = () => {
-  const form = new Form();
   const queries = getQueries();
-  read(queries, form);
+  const form = new Form(queries);
+  read(form);
 };
 
 main();
