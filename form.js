@@ -12,31 +12,15 @@ const validateYear = (year) => {
 
 class Form {
   constructor() {
-    this.name = '';
-    this.dob = '';
-    this.hobbies = '';
-    this.phoneNum = '';
     this.address = '';
   }
 
-  addName(name) {
-    this.name = name.trim();
-    return this.#isNameValid();
-  }
-
-  addDob(dob) {
-    this.dob = dob.trim();
-    return this.#isDobValid();
-  }
-
-  addHobbies(hobbies) {
-    this.hobbies = hobbies.trim().split(',');
-    return this.#isHobbiesValid();
-  }
-
-  addPhnNo(number) {
-    this.phoneNum = number.trim();
-    return this.#isphnNumValid();
+  addInfo(queryName, info) {
+    if (queryName === 'hobbies') {
+      this.hobbies = info.trim().split(',');
+      return;
+    }
+    this[queryName] = info.trim();
   }
 
   addAddress(line) {
@@ -49,14 +33,14 @@ class Form {
   }
 
   saveData() {
-    fs.writeFileSync('./info.json', JSON.stringify(this), 'utf8');
+    fs.writeFileSync('./form.json', JSON.stringify(this), 'utf8');
   }
 
-  #isNameValid() {
+  isNameValid() {
     return this.name.length > 3;
   }
 
-  #isDobValid() {
+  isDobValid() {
     const dobArray = this.dob.split('-');
     if (dobArray.length !== 3) {
       return false;
@@ -65,7 +49,7 @@ class Form {
     return validateYear(year) && validateMonth(month) && validateDate(date);
   }
 
-  #isHobbiesValid() {
+  isHobbiesValid() {
     if (this.hobbies[0] === '') {
       this.hobbies.pop();
       return false;
@@ -73,7 +57,7 @@ class Form {
     return this.hobbies.length > 0;
   }
 
-  #isphnNumValid() {
+  isphnNumValid() {
     return this.phoneNum.length === 10 && isFinite(this.phoneNum);
   }
 }
