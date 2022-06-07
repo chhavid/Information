@@ -1,18 +1,8 @@
 process.stdin.setEncoding('utf8');
 const { Form } = require('./form.js');
 
-const getFns = (form) => {
-  return {
-    name: () => form.isNameValid(),
-    dob: () => form.isDobValid(),
-    phoneNum: () => form.isphnNumValid(),
-    hobbies: () => form.isHobbiesValid(),
-  };
-};
-
-const processInput = (input, form, queryName) => {
-  const fns = getFns(form);
-  return form.addInfo(queryName, input, fns[queryName]);
+const processInput = (input, form, query) => {
+  return form.addInfo(query.name, input, query.validator);
 };
 
 const read = (queries, form) => {
@@ -20,7 +10,7 @@ const read = (queries, form) => {
   console.log(queries[index].query);
 
   process.stdin.on('data', (chunk) => {
-    if (processInput(chunk, form, queries[index].name)) {
+    if (processInput(chunk, form, queries[index]) === true) {
       index++;
     }
     console.log(queries[index].query);
@@ -35,13 +25,68 @@ const read = (queries, form) => {
   });
 };
 
+const validateDate = (date) => {
+  return date.length === 2 && isFinite(date);
+};
+const validateMonth = (month) => {
+  return month.length === 2 && isFinite(month);
+};
+const validateYear = (year) => {
+  return year.length === 4 && isFinite(year);
+};
+
+const isNameValid = (name) => name.length > 3;
+
+const isphnNumValid = (phoneNum) => {
+  return phoneNum.trim().length === 10 && isFinite(phoneNum.trim());
+};
+
+const isHobbiesValid = (hobbies) => {
+  if (hobbies === '\n') {
+    return false;
+  }
+  return hobbies.length > 0;
+};
+
+const isDobValid = (dob) => {
+  const dobArray = dob.trim().split('-');
+  if (dobArray.length !== 3) {
+    return false;
+  }
+  const [year, month, date] = dobArray;
+  return validateYear(year) && validateMonth(month) &&
+    validateDate(date);
+};
+
+const isAddressValid = (address) => {
+  return address;
+};
+
 const getQueries = () => [
-  { name: 'name', query: 'Please enter your name' },
-  { name: 'dob', query: 'Please enter your DOB(yyyy-mm-dd)' },
-  { name: 'hobbies', query: 'Please enter your hobbies' },
-  { name: 'phoneNum', query: 'Please enter your phone number' },
-  { name: 'address', query: 'Please enter your address line 1' },
-  { name: 'address', query: 'Please enter your address line 2' },
+  {
+    name: 'name', query: 'Please enter your name',
+    validator: isNameValid
+  },
+  {
+    name: 'dob', query: 'Please enter your DOB(yyyy-mm-dd)',
+    validator: isDobValid
+  },
+  {
+    name: 'hobbies', query: 'Please enter your hobbies',
+    validator: isHobbiesValid
+  },
+  {
+    name: 'phoneNum', query: 'Please enter your phone number',
+    validator: isphnNumValid
+  },
+  {
+    name: 'address', query: 'Please enter your address line 1',
+    validator: isAddressValid
+  },
+  {
+    name: 'address', query: 'Please enter your address line 2',
+    validator: isAddressValid
+  },
   { name: 'last', query: 'Thank You!' }
 ];
 
