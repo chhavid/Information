@@ -5,19 +5,14 @@ class Form {
     this.address = '';
   }
 
-  addInfo(queryName, info, validateFn) {
+  addInfo(queryName, info, parser, validateFn) {
     if (validateFn(info) === false) {
       return false;
-    }
-
-    if (queryName === 'hobbies') {
-      this.hobbies = info.trim().split(',');
-      return true;
     }
     if (queryName === 'address') {
       return this.addAddress(info);
     }
-    this[queryName] = info.trim();
+    this[queryName] = parser(info);
     return true;
   }
 

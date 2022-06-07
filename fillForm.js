@@ -2,7 +2,7 @@ process.stdin.setEncoding('utf8');
 const { Form } = require('./form.js');
 
 const processInput = (input, form, query) => {
-  return form.addInfo(query.name, input, query.validator);
+  return form.addInfo(query.name, input, query.parser, query.validator);
 };
 
 const read = (queries, form) => {
@@ -62,30 +62,34 @@ const isAddressValid = (address) => {
   return address;
 };
 
+const identity = (info) => info.trim();
+
+const parseHobbies = (hobbies) => hobbies.trim().split(',');
+
 const getQueries = () => [
   {
     name: 'name', query: 'Please enter your name',
-    validator: isNameValid
+    validator: isNameValid, parser: identity
   },
   {
     name: 'dob', query: 'Please enter your DOB(yyyy-mm-dd)',
-    validator: isDobValid
+    validator: isDobValid, parser: identity
   },
   {
     name: 'hobbies', query: 'Please enter your hobbies',
-    validator: isHobbiesValid
+    validator: isHobbiesValid, parser: parseHobbies
   },
   {
     name: 'phoneNum', query: 'Please enter your phone number',
-    validator: isphnNumValid
+    validator: isphnNumValid, parser: identity
   },
   {
     name: 'address', query: 'Please enter your address line 1',
-    validator: isAddressValid
+    validator: isAddressValid, parser: identity
   },
   {
     name: 'address', query: 'Please enter your address line 2',
-    validator: isAddressValid
+    validator: isAddressValid, parser: identity
   },
   { name: 'last', query: 'Thank You!' }
 ];
