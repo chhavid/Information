@@ -20,6 +20,9 @@ class Form {
       this.hobbies = info.trim().split(',');
       return;
     }
+    if (queryName === 'address') {
+      return this.addAddress(info);
+    }
     this[queryName] = info.trim();
   }
 

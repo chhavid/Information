@@ -7,15 +7,11 @@ const getFns = (form) => {
     dob: () => form.isDobValid(),
     phoneNum: () => form.isphnNumValid(),
     hobbies: () => form.isHobbiesValid(),
-    last: () => form.saveData(),
+    address: () => true,
   };
 };
 
 const processInput = (input, form, queryName) => {
-  if (queryName === 'address') {
-    return form.addAddress(input);
-  }
-
   const fns = getFns(form);
   form.addInfo(queryName, input);
   return fns[queryName]();
