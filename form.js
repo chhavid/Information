@@ -15,15 +15,16 @@ class Form {
     this.address = '';
   }
 
-  addInfo(queryName, info) {
+  addInfo(queryName, info, validateFn) {
     if (queryName === 'hobbies') {
       this.hobbies = info.trim().split(',');
-      return;
+      return validateFn();
     }
     if (queryName === 'address') {
       return this.addAddress(info);
     }
     this[queryName] = info.trim();
+    return validateFn();
   }
 
   addAddress(line) {

@@ -7,14 +7,12 @@ const getFns = (form) => {
     dob: () => form.isDobValid(),
     phoneNum: () => form.isphnNumValid(),
     hobbies: () => form.isHobbiesValid(),
-    address: () => true,
   };
 };
 
 const processInput = (input, form, queryName) => {
   const fns = getFns(form);
-  form.addInfo(queryName, input);
-  return fns[queryName]();
+  return form.addInfo(queryName, input, fns[queryName]);
 };
 
 const read = (queries, form) => {
