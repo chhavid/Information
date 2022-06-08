@@ -1,10 +1,12 @@
+const { Field } = require('./field');
+
 const isNameValid = (name) => name.length > 4;
 
-const isphnNumValid = (phoneNum) => {
+const isPhnNumValid = (phoneNum) => {
   return phoneNum.length === 10 && isFinite(phoneNum);
 };
 
-const isHobbiesValid = (hobbies) => {
+const areHobbiesValid = (hobbies) => {
   return hobbies.length > 0;
 };
 
@@ -22,31 +24,25 @@ const parseHobbies = (hobbies) => hobbies.trim().split(',');
 
 const parseAddress = (address) => '\n' + address;
 
-const getQueries = () => [
-  {
-    name: 'name', query: 'Please enter your name',
-    validator: isNameValid, parser: identity
-  },
-  {
-    name: 'dob', query: 'Please enter your DOB(yyyy-mm-dd)',
-    validator: isDobValid, parser: identity
-  },
-  {
-    name: 'hobbies', query: 'Please enter your hobbies',
-    validator: isHobbiesValid, parser: parseHobbies
-  },
-  {
-    name: 'phoneNum', query: 'Please enter your phone number',
-    validator: isphnNumValid, parser: identity
-  },
-  {
-    name: 'address', query: 'Please enter your address line 1',
-    validator: isAddressValid, parser: parseAddress
-  },
-  {
-    name: 'address', query: 'Please enter your address line 2',
-    validator: isAddressValid, parser: parseAddress
-  }
-];
+const nameField = new Field('name', 'Please enter your name',
+  isNameValid, identity);
+
+const dobField = new Field('dob', 'Please enter your dob',
+  isDobValid, identity);
+
+const hobbiesField = new Field('hobbies', 'Please enter your hobbies',
+  areHobbiesValid, parseHobbies);
+
+const phoneNumField = new Field('phoneNum', 'Please enter your phone number',
+  isPhnNumValid, identity);
+
+const addressField1 = new Field('address', 'Please enter your address line 1',
+  isAddressValid, parseAddress);
+
+const addressField2 = new Field('address', 'Please enter your address line 2',
+  isAddressValid, parseAddress);
+
+const getQueries = () => [nameField, dobField, hobbiesField,
+  phoneNumField, addressField1, addressField2];
 
 exports.getQueries = getQueries;

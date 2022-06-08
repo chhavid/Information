@@ -2,9 +2,10 @@ process.stdin.setEncoding('utf8');
 const { Form } = require('./src/form.js');
 const { getQueries } = require('./src/queries.js');
 const { processInput } = require('./src/formLib.js');
+const fs = require('fs');
 
 const saveData = (form) => {
-  form.saveData();
+  form.saveData(fs);
   process.stdin.destroy();
 };
 

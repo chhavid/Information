@@ -1,22 +1,15 @@
 const assert = require('assert');
+const { Field } = require('../src/field');
 const { Form } = require('../src/form');
 const { processInput } = require('../src/formLib');
 
 describe('Process input', () => {
+  const identity = (text) => text;
+
   it('should display next prompt', () => {
-    const queries = [{
-      name: 'name',
-      query: 'enter name',
-      validator: () => true,
-      parser: (response) => response
-    },
-    {
-      name: 'dob',
-      query: 'enter dob',
-      validator: () => true,
-      parser: (response) => response
-    }];
-    const form = new Form(queries);
+    const nameField = new Field('name', 'enter name', () => true, identity);
+    const dobField = new Field('dob', 'enter dob', () => true, identity);
+    const form = new Form([nameField, dobField]);
     const input = 'chhavi';
     const display = [];
     const logger = (prompt) => display.push(prompt);
@@ -25,17 +18,17 @@ describe('Process input', () => {
   });
 
   it('should display thank you if form is filled', () => {
-    const queries = [{
-      name: 'name',
-      query: 'enter name',
-      validator: () => true,
-      parser: (response) => response
-    }];
-    const form = new Form(queries);
+    const nameField = new Field('name', 'enter name', () => true, identity);
+    const form = new Form([nameField]);
     const input = 'chhavi';
     const display = [];
+
+    const callback = (_form) => {
+      assert.deepStrictEqual(_form, form);
+    };
+
     const logger = (prompt) => display.push(prompt);
-    processInput(input, form, logger, () => true);
+    processInput(input, form, logger, callback);
     assert.deepStrictEqual(display, ['Thank You']);
   });
 });

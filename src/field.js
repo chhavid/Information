@@ -13,18 +13,23 @@ class Field {
   }
 
   getPrompt() {
-    return this.prompt;
+    return this.#prompt;
   }
 
   isValid(response) {
-    return this.validator(response);
+    return this.#validator(response);
   }
 
   fill(response) {
-    if (this.isValid(response)) {
-      throw 'error';
-    }
     this.#response = response;
+  }
+
+  getName() {
+    return this.#name;
+  }
+
+  parse(response) {
+    return this.#parser(response);
   }
 }
 

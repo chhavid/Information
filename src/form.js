@@ -1,5 +1,3 @@
-const fs = require('fs');
-
 class Form {
   constructor(queries) {
     this.queries = queries;
@@ -13,15 +11,15 @@ class Form {
 
   addInfo(info) {
     const query = this.queries[this.index];
-    if (!query.validator(info)) {
+    if (!query.isValid(info)) {
       return;
     }
-    if (query.name === 'address') {
+    if (query.getName() === 'address') {
       this.addAddress(info);
       this.incrementIndex();
       return;
     }
-    this.formData[query.name] = query.parser(info);
+    this.formData[query.getName()] = query.parse(info);
     this.incrementIndex();
   }
 
@@ -37,12 +35,12 @@ class Form {
     this.formData.address = address;
   }
 
-  saveData() {
+  saveData(fs) {
     fs.writeFileSync('./form.json', JSON.stringify(this.formData), 'utf8');
   }
 
   getQuery() {
-    return this.queries[this.index].query;
+    return this.queries[this.index].getPrompt();
   }
 }
 
