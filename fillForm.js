@@ -10,7 +10,7 @@ const saveData = (form) => {
 };
 
 const read = (form) => {
-  console.log(form.getQuery());
+  console.log(form.getCurrentPrompt());
   process.stdin.on('data', (chunk) => {
     processInput(chunk, form, console.log, saveData);
   });

@@ -16,11 +16,14 @@ class Field {
     return this.#prompt;
   }
 
-  isValid(response) {
+  #isValid(response) {
     return this.#validator(response);
   }
 
   fill(response) {
+    if (!this.#isValid(response)) {
+      throw { message: `invalid ${this.#name}` };
+    }
     this.#response = response;
   }
 

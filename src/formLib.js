@@ -1,11 +1,15 @@
 const processInput = (input, form, logger, saveData) => {
-  form.addField(input.trim());
+  try {
+    form.addField(input.trim());
+  } catch (error) {
+    console.log(error.message);
+  }
   if (form.areAllDetailsFilled()) {
     saveData(form);
     logger('Thank You');
-  } else {
-    logger(form.getCurrentPrompt());
+    return;
   }
+  logger(form.getCurrentPrompt());
 };
 
 module.exports = { processInput };

@@ -23,7 +23,7 @@ const identity = (info) => info.trim();
 
 const parseHobbies = (hobbies) => hobbies.trim().split(',');
 
-const parseAddress = (address) => '\n' + address;
+const parseAddress = (addresses) => addresses.join('\n');
 
 const nameField = new Field('name', 'Please enter your name',
   isNameValid, identity);

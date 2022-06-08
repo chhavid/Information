@@ -12,9 +12,6 @@ class Form {
 
   addField(response) {
     const field = this.#fields[this.#index];
-    if (!field.isValid(response)) {
-      return;
-    }
     field.fill(response);
     if (field.isFilled()) {
       this.#incrementIndex();

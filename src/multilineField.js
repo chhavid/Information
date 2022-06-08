@@ -16,11 +16,14 @@ class MultilineField {
     return this.#prompts[this.#responses.length];
   }
 
-  isValid(response) {
+  #isValid(response) {
     return this.#validator(response);
   }
 
   fill(response) {
+    if (!this.#isValid(response)) {
+      throw { message: `invalid ${this.#name}` };
+    }
     this.#responses.push(response);
   }
 
@@ -28,12 +31,12 @@ class MultilineField {
     return this.#name;
   }
 
-  parse(response) {
+  #parse(response) {
     return this.#parser(response);
   }
 
   getResponse() {
-    return this.#responses.join('\n');
+    return this.#parse(this.#responses);
   }
 
   isFilled() {
