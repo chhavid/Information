@@ -1,11 +1,10 @@
-const processInput = (input, form) => {
+const processInput = (input, form, logger, saveData) => {
   form.addInfo(input.trim());
   if (form.areAllDetailsFilled()) {
-    console.log('Thank You');
-    form.saveData();
-    process.stdin.destroy();
+    saveData(form);
+    logger('Thank You');
   } else {
-    console.log(form.getQuery());
+    logger(form.getQuery());
   }
 };
 

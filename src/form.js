@@ -26,7 +26,7 @@ class Form {
   }
 
   areAllDetailsFilled() {
-    return this.index > 5;
+    return this.index >= this.queries.length;
   }
 
   addAddress(address) {
