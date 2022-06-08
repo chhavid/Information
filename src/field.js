@@ -31,6 +31,14 @@ class Field {
   parse(response) {
     return this.#parser(response);
   }
+
+  getResponse() {
+    return this.parse(this.#response);
+  }
+
+  isFilled() {
+    return this.#response !== null;
+  }
 }
 
 exports.Field = Field;

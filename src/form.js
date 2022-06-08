@@ -14,17 +14,14 @@ class Form {
     if (!query.isValid(info)) {
       return;
     }
-    if (query.getName() === 'address') {
-      this.addAddress(info);
+    query.fill(info);
+    if (query.isFilled()) {
       this.incrementIndex();
-      return;
     }
-    this.formData[query.getName()] = query.parse(info);
-    this.incrementIndex();
   }
 
   areAllDetailsFilled() {
-    return this.index >= this.queries.length;
+    return this.queries.every((query) => query.isFilled());
   }
 
   addAddress(address) {
@@ -35,8 +32,13 @@ class Form {
     this.formData.address = address;
   }
 
-  saveData(fs) {
-    fs.writeFileSync('./form.json', JSON.stringify(this.formData), 'utf8');
+  getFormDetails() {
+    const details = {};
+    this.queries.forEach((query) => {
+      details[query.getName()] = query.getResponse();
+    });
+
+    return JSON.stringify(details);
   }
 
   getQuery() {

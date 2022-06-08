@@ -1,4 +1,5 @@
 const { Field } = require('./field');
+const { MultilineField } = require('./multilineField');
 
 const isNameValid = (name) => name.length > 4;
 
@@ -36,13 +37,11 @@ const hobbiesField = new Field('hobbies', 'Please enter your hobbies',
 const phoneNumField = new Field('phoneNum', 'Please enter your phone number',
   isPhnNumValid, identity);
 
-const addressField1 = new Field('address', 'Please enter your address line 1',
-  isAddressValid, parseAddress);
-
-const addressField2 = new Field('address', 'Please enter your address line 2',
+const addressField = new MultilineField('address',
+  ['Please enter your address line 1', 'Please enter your address line 2'],
   isAddressValid, parseAddress);
 
 const getQueries = () => [nameField, dobField, hobbiesField,
-  phoneNumField, addressField1, addressField2];
+  phoneNumField, addressField];
 
 exports.getQueries = getQueries;

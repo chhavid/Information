@@ -5,7 +5,7 @@ const { processInput } = require('./src/formLib.js');
 const fs = require('fs');
 
 const saveData = (form) => {
-  form.saveData(fs);
+  fs.writeFileSync('./form.json', form.getFormDetails(), 'utf8');
   process.stdin.destroy();
 };
 
