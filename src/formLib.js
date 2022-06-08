@@ -2,7 +2,7 @@ const processInput = (input, form, logger, saveData) => {
   try {
     form.addField(input.trim());
   } catch (error) {
-    console.log(error.message);
+    logger(error.message);
   }
   if (form.areAllDetailsFilled()) {
     saveData(form);

@@ -4,7 +4,7 @@ class MultilineField {
   #validator;
   #parser;
   #responses;
-  constructor(name, prompts, validator, parser) {
+  constructor(name, prompts, validator = () => true, parser = (text) => text) {
     this.#name = name;
     this.#prompts = prompts;
     this.#validator = validator;
