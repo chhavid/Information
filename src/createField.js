@@ -25,23 +25,28 @@ const parseHobbies = (hobbies) => hobbies.trim().split(',');
 
 const parseAddress = (addresses) => addresses.join('\n');
 
-const nameField = new Field('name', 'Please enter your name',
-  isNameValid, identity);
+const getFields = () => {
+  const nameField = new Field('name', 'Please enter your name',
+    isNameValid, identity);
 
-const dobField = new Field('dob', 'Please enter your dob',
-  isDobValid, identity);
+  const dobField = new Field('dob', 'Please enter your dob',
+    isDobValid, identity);
 
-const hobbiesField = new Field('hobbies', 'Please enter your hobbies',
-  areHobbiesValid, parseHobbies);
+  const hobbiesField = new Field('hobbies', 'Please enter your hobbies',
+    areHobbiesValid, parseHobbies);
 
-const phoneNumField = new Field('phoneNum', 'Please enter your phone number',
-  isPhnNumValid, identity);
+  const phoneNumField = new Field('phoneNum', 'Please enter your phone number',
+    isPhnNumValid, identity);
 
-const addressField = new MultilineField('address',
-  ['Please enter your address line 1', 'Please enter your address line 2'],
-  isAddressValid, parseAddress);
+  const addressField = new MultilineField('address',
+    ['Please enter your address line 1', 'Please enter your address line 2'],
+    isAddressValid, parseAddress);
 
-const getFields = () => [nameField, dobField, hobbiesField,
-  phoneNumField, addressField];
+  return [nameField, dobField, hobbiesField,
+    phoneNumField, addressField];
+};
 
-exports.getFields = getFields;
+module.exports = {
+  getFields, isPhnNumValid, isAddressValid, isDobValid,
+  areHobbiesValid, isNameValid, parseAddress, parseHobbies, identity
+};
