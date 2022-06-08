@@ -34,6 +34,11 @@ class Form {
   getCurrentPrompt() {
     return this.#fields[this.#index].getPrompt();
   }
+
+  equals(anotherForm) {
+    return anotherForm instanceof Form &&
+      this.#fields[this.#index].equals(anotherForm.#fields[anotherForm.#index]);
+  }
 }
 
 exports.Form = Form;
