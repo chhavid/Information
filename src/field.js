@@ -42,6 +42,12 @@ class Field {
   isFilled() {
     return this.#response !== null;
   }
+
+  equals(anotherField) {
+    return anotherField instanceof Field &&
+      this.#name === anotherField.#name &&
+      this.#prompt === anotherField.#prompt;
+  }
 }
 
 exports.Field = Field;
