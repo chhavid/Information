@@ -1,21 +1,12 @@
 process.stdin.setEncoding('utf8');
-const { Form } = require('./form.js');
-const { getQueries } = require('./queries.js');
-
-const processInput = (input, form) => {
-  form.addInfo(input.trim());
-  if (form.areAllDetailsFilled()) {
-    console.log('Thank You');
-    form.saveData();
-    process.exit();
-  }
-};
+const { Form } = require('./src/form.js');
+const { getQueries } = require('./src/queries.js');
+const { processInput } = require('./src/formLib.js');
 
 const read = (form) => {
-  form.displayQuery();
+  console.log(form.getQuery());
   process.stdin.on('data', (chunk) => {
     processInput(chunk, form);
-    form.displayQuery();
   });
 };
 

@@ -41,8 +41,8 @@ class Form {
     fs.writeFileSync('./form.json', JSON.stringify(this.formData), 'utf8');
   }
 
-  displayQuery() {
-    console.log(this.queries[this.index].query);
+  getQuery() {
+    return this.queries[this.index].query;
   }
 }
 
