@@ -1,40 +1,33 @@
 class Form {
+  #queries;
+  #index;
   constructor(queries) {
-    this.queries = queries;
-    this.index = 0;
-    this.formData = {};
+    this.#queries = queries;
+    this.#index = 0;
   }
 
-  incrementIndex() {
-    this.index++;
+  #incrementIndex() {
+    this.#index++;
   }
 
   addInfo(info) {
-    const query = this.queries[this.index];
+    const query = this.#queries[this.#index];
     if (!query.isValid(info)) {
       return;
     }
     query.fill(info);
     if (query.isFilled()) {
-      this.incrementIndex();
+      this.#incrementIndex();
     }
   }
 
   areAllDetailsFilled() {
-    return this.queries.every((query) => query.isFilled());
-  }
-
-  addAddress(address) {
-    if (this.formData.address) {
-      this.formData.address += '\n' + address;
-      return;
-    }
-    this.formData.address = address;
+    return this.#queries.every((query) => query.isFilled());
   }
 
   getFormDetails() {
     const details = {};
-    this.queries.forEach((query) => {
+    this.#queries.forEach((query) => {
       details[query.getName()] = query.getResponse();
     });
 
@@ -42,7 +35,7 @@ class Form {
   }
 
   getQuery() {
-    return this.queries[this.index].getPrompt();
+    return this.#queries[this.#index].getPrompt();
   }
 }
 

@@ -28,12 +28,12 @@ class Field {
     return this.#name;
   }
 
-  parse(response) {
+  #parse(response) {
     return this.#parser(response);
   }
 
   getResponse() {
-    return this.parse(this.#response);
+    return this.#parse(this.#response);
   }
 
   isFilled() {
