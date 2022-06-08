@@ -41,7 +41,7 @@ const addressField = new MultilineField('address',
   ['Please enter your address line 1', 'Please enter your address line 2'],
   isAddressValid, parseAddress);
 
-const getQueries = () => [nameField, dobField, hobbiesField,
+const getFields = () => [nameField, dobField, hobbiesField,
   phoneNumField, addressField];
 
-exports.getQueries = getQueries;
+exports.getFields = getFields;

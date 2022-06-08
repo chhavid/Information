@@ -1,8 +1,8 @@
 class Form {
-  #queries;
+  #fields;
   #index;
-  constructor(queries) {
-    this.#queries = queries;
+  constructor(fields) {
+    this.#fields = fields;
     this.#index = 0;
   }
 
@@ -10,32 +10,32 @@ class Form {
     this.#index++;
   }
 
-  addInfo(info) {
-    const query = this.#queries[this.#index];
-    if (!query.isValid(info)) {
+  addField(response) {
+    const field = this.#fields[this.#index];
+    if (!field.isValid(response)) {
       return;
     }
-    query.fill(info);
-    if (query.isFilled()) {
+    field.fill(response);
+    if (field.isFilled()) {
       this.#incrementIndex();
     }
   }
 
   areAllDetailsFilled() {
-    return this.#queries.every((query) => query.isFilled());
+    return this.#fields.every((field) => field.isFilled());
   }
 
   getFormDetails() {
     const details = {};
-    this.#queries.forEach((query) => {
-      details[query.getName()] = query.getResponse();
+    this.#fields.forEach((field) => {
+      details[field.getName()] = field.getResponse();
     });
 
     return JSON.stringify(details);
   }
 
-  getQuery() {
-    return this.#queries[this.#index].getPrompt();
+  getCurrentPrompt() {
+    return this.#fields[this.#index].getPrompt();
   }
 }
 

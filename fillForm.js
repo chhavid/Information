@@ -1,6 +1,6 @@
 process.stdin.setEncoding('utf8');
 const { Form } = require('./src/form.js');
-const { getQueries } = require('./src/queries.js');
+const { getFields } = require('./src/createField.js');
 const { processInput } = require('./src/formLib.js');
 const fs = require('fs');
 
@@ -17,8 +17,8 @@ const read = (form) => {
 };
 
 const main = () => {
-  const queries = getQueries();
-  const form = new Form(queries);
+  const fields = getFields();
+  const form = new Form(fields);
   read(form);
 };
 

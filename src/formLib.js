@@ -1,10 +1,10 @@
 const processInput = (input, form, logger, saveData) => {
-  form.addInfo(input.trim());
+  form.addField(input.trim());
   if (form.areAllDetailsFilled()) {
     saveData(form);
     logger('Thank You');
   } else {
-    logger(form.getQuery());
+    logger(form.getCurrentPrompt());
   }
 };
 
