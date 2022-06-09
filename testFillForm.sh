@@ -62,7 +62,11 @@ message="Should give the prompt again if input is invalid"
 assert "${message}" ${actual3} ${expected3}
 }
 
+function main() {
 filled_form
 rm form.json
 closing_stream
 invalid_input
+}
+
+main
