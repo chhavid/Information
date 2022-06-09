@@ -1,0 +1,22 @@
+{
+  "name": "form",
+  "version": "1.0.0",
+  "description": "",
+  "main": "fillForm.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha && ./testFillForm.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chhavid/Information.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chhavid/Information/issues"
+  },
+  "homepage": "https://github.com/chhavid/Information#readme"
+}
