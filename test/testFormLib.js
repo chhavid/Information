@@ -21,13 +21,15 @@ describe('Process input', () => {
     const form = new Form([nameField]);
     const input = 'praju';
     const display = [];
+    let callbackOutput;
 
-    const callback = (_form) => {
-      assert.deepStrictEqual(_form, form);
+    const callback = form => {
+      callbackOutput = form;
     };
 
     const logger = (prompt) => display.push(prompt);
     processInput(input, form, logger, callback);
+    assert.deepStrictEqual(callbackOutput, form);
     assert.deepStrictEqual(display, ['Thank You']);
   });
 
