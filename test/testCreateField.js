@@ -65,7 +65,7 @@ describe('parseHobbies', () => {
 });
 
 describe('parseAddress', () => {
-  it('should join addresses by "\n"', () => {
+  it('should join addresses by \\n', () => {
     assert.strictEqual(parseAddress(['bangalore', 'karnataka']),
       'bangalore\nkarnataka');
   });

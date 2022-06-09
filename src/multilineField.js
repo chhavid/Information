@@ -27,16 +27,8 @@ class MultilineField {
     this.#responses.push(response);
   }
 
-  getName() {
-    return this.#name;
-  }
-
-  #parse(response) {
-    return this.#parser(response);
-  }
-
   getResponse() {
-    return this.#parse(this.#responses);
+    return { name: this.#name, response: this.#parser(this.#responses) };
   }
 
   isFilled() {

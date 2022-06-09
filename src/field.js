@@ -27,16 +27,8 @@ class Field {
     this.#response = response;
   }
 
-  getName() {
-    return this.#name;
-  }
-
-  #parse(response) {
-    return this.#parser(response);
-  }
-
   getResponse() {
-    return this.#parse(this.#response);
+    return { name: this.#name, response: this.#parser(this.#response) };
   }
 
   isFilled() {

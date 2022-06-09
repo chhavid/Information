@@ -20,18 +20,14 @@ describe('Field', () => {
       assert.strictEqual(field.getPrompt(), 'b');
     });
   });
-  describe('getName', () => {
-    it('should return the name of field', () => {
-      const field = new Field('a', 'b');
-      assert.strictEqual(field.getName(), 'a');
-    });
-  });
 
   describe('fill', () => {
     it('should fill the valid response', () => {
       const field = new Field('a', 'b');
       field.fill('hello');
-      assert.strictEqual(field.getResponse(), 'hello');
+      assert.deepStrictEqual(field.getResponse(), {
+        name: 'a', response: 'hello'
+      });
     });
     it('should throw error if response is invalid', () => {
       const field = new Field('a', 'b', () => false);
@@ -43,7 +39,9 @@ describe('Field', () => {
     it('should return the response for field', () => {
       const field = new Field('a', 'b');
       field.fill('hello');
-      assert.strictEqual(field.getResponse(), 'hello');
+      assert.deepStrictEqual(field.getResponse(), {
+        name: 'a', response: 'hello'
+      });
     });
   });
   describe('isFilled', () => {

@@ -25,7 +25,8 @@ class Form {
   getFormDetails() {
     const details = {};
     this.#fields.forEach((field) => {
-      details[field.getName()] = field.getResponse();
+      const { name, response } = field.getResponse();
+      details[name] = response;
     });
 
     return JSON.stringify(details);
