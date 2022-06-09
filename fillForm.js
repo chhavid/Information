@@ -12,7 +12,8 @@ const saveData = (form) => {
 const read = (form) => {
   console.log(form.getCurrentPrompt());
   process.stdin.on('data', (chunk) => {
-    processInput(chunk, form, console.log, saveData);
+    const lines = chunk.trim().split('\n');
+    lines.forEach((line) => processInput(line, form, console.log, saveData));
   });
 };
 
